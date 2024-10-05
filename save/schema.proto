@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+package save;
+option go_package = "github.com/m110/kingdoms/save";
+
+message Global {
+    Header header = 1;
+
+    int64 diamonds = 2;
+};
+
+message Header {
+    int64 version = 1;
+}
+
+message Game {
+    Header header = 1;
+    Board board = 2;
+    Resources resources = 3;
+    Camera camera = 4;
+    repeated Building buildings = 5;
+    repeated Road roads = 6;
+    Research research = 7;
+    Player player = 8;
+    Progress progress = 9;
+}
+
+message Board {
+    int64 width = 1;
+    int64 height = 2;
+    repeated Tile tiles = 3;
+    Position start_position = 4;
+}
+
+message Camera {
+    Vector position = 1;
+    Vector zoom = 2;
+}
+
+message Research {
+    repeated TechnologyType technologies = 2;
+}
+
+message Player {
+    PlayerCharacterType character = 1;
+}
+
+message Resources {
+    int64 wood = 1;
+    int64 stone = 2;
+    int64 food = 3;
+    int64 iron = 4;
+    int64 gold = 5;
+}
+
+message Tile {
+    Position position = 1;
+    TerrainType terrain = 2;
+    optional DepositType deposit = 3;
+    TileResource resource = 4;
+}
+
+message Building {
+    int64 id = 1;
+    Position position = 2;
+    BuildingType type = 3;
+    int64 level = 4;
+}
+
+message Road {
+    Position position = 1;
+}
+
+message Progress {
+    SeasonType season = 1;
+    int64 year = 2;
+    int64 day = 3;
+}
+
+message Position {
+    int64 x = 1;
+    int64 y = 2;
+}
+
+message Vector {
+    float x = 1;
+    float y = 2;
+}
+
+message TileResource {
+    ResourceType Resource = 1;
+    int64 amount = 2;
+    int64 max_amount = 3;
+}
+
+enum ResourceType {
+    ResourceWood = 0;
+    ResourceStone = 1;
+    ResourceFood = 2;
+    ResourceIron = 3;
+    ResourceGold = 4;
+    ResourceDiamonds = 5;
+}
+
+enum TerrainType {
+    TerrainPlains = 0;
+    TerrainForest = 1;
+    TerrainDesert = 2;
+    TerrainMountains = 3;
+    TerrainWater = 4;
+    TerrainShore = 5;
+}
+
+enum DepositType {
+    DepositTrees = 0;
+    DepositRocks = 1;
+    DepositBerries = 2;
+    DepositMushrooms = 3;
+    DepositDeer = 4;
+    DepositIronOre = 5;
+}
+
+enum BuildingType {
+    BuildingSettlement = 0;
+}
+
+enum TechnologyType {
+    TechnologyMining = 0;
+    TechnologyStonecraft = 1;
+    TechnologyIronworking = 2;
+    TechnologySentryTower = 3;
+    TechnologySwords = 4;
+    TechnologyKnighthood = 5;
+    TechnologyGranary = 6;
+    TechnologyHunting = 7;
+    TechnologyFarming = 8;
+    TechnologyCurrency = 9;
+    TechnologyDocks = 10;
+    TechnologyTrade = 11;
+}
+
+enum SeasonType {
+    SeasonSpring = 0;
+    SeasonSummer = 1;
+    SeasonFall = 2;
+    SeasonWinter = 3;
+}
+
+enum PlayerCharacterType {
+    PlayerCharacterKing = 0;
+    PlayerCharacterQueen = 1;
+    PlayerCharacterPrincess = 2;
+    PlayerCharacterMerchant = 3;
+}

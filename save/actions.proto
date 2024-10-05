@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package save;
+option go_package = "github.com/m110/kingdoms/save";
+
+import "schema.proto";
+
+message GameReplay {
+  Header header = 1;
+  Board board = 2;
+  Player player = 3;
+  repeated Action actions = 4;
+  int64 last_tick = 5;
+}
+
+enum ActionType {
+  ActionNewRoadRequested = 0;
+  ActionNewSettlementRequested = 1;
+  ActionSettlementUpgradeRequested = 2;
+  ActionCameraMoved = 3;
+  ActionResearchRequested = 4;
+}
+
+message Action {
+  ActionType type = 1;
+  int64 tick = 2;
+  ActionPayload payload  = 3;
+}
+
+message ActionPayload {
+  oneof payload {
+    NewRoadRequested new_road_requested = 1;
+    NewSettlementRequested new_settlement_requested = 2;
+    SettlementUpgradeRequested settlement_upgrade_requested = 3;
+    CameraMoved camera_moved = 4;
+    ResearchRequested research_requested = 5;
+  };
+}
+
+message NewRoadRequested {
+  Position position = 1;
+}
+
+message NewSettlementRequested {
+  Position position = 1;
+}
+
+message SettlementUpgradeRequested {
+  int64 settlement_id = 1;
+}
+
+message CameraMoved {
+  Vector delta = 1;
+}
+
+message ResearchRequested {
+  TechnologyType technology = 1;
+}

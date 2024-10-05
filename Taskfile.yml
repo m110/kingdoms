@@ -1,0 +1,47 @@
+version: '3'
+
+tasks:
+  store-version:
+    cmds:
+      - git describe --tags > assets/version
+
+  mobile:
+    deps:
+      - task: store-version
+    dir: ./mobile
+    env:
+      VERSION: "V"
+    cmds:
+      - ebitenmobile bind -target ios -o kingdoms.xcframework .
+
+  mobile-deploy:
+    deps:
+      - mobile
+    dir: ./mobile/Kingdoms
+    cmds:
+      - xcodebuild -scheme Kingdoms -configuration Debug -sdk iphoneos -derivedDataPath build 
+      - ios-deploy --bundle build/Build/Products/Debug-iphoneos/Kingdoms.app --nostart --no-wifi 
+
+  mobile-android:
+    deps:
+      - task: store-version
+    dir: ./mobile
+    env:
+      ANDROID_HOME: "{{.HOME}}/Library/Android/sdk"
+      VERSION: "V"
+    cmds:
+      - PATH="/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin:{{.PATH}}"
+        ebitenmobile bind -target android -androidapi 21 -javapkg m110.kingdoms -o Kingdoms-android/libs/kingdoms.aar .
+
+  docker-protoc:
+    dir: ./dev/protoc
+    cmds:
+      - docker build -t protoc .
+
+  proto:
+    deps:
+      - task: docker-protoc
+    cmds:
+      - docker run --platform=linux/amd64 --rm -v "$PWD":/src -w /src protoc protoc 
+        --proto_path=save save/schema.proto save/actions.proto
+        --go_out=save --go_opt=paths=source_relative

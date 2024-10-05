@@ -1,0 +1,27 @@
+package main
+
+var Cb0 float
+
+func Fragment(position vec4, texCoord vec2, color vec4) vec4 {
+    // Time factor for animation (passed as a uniform)
+    u_time := Cb0
+
+    // Calculate random position for snowflakes based on time
+    x := fract(sin(texCoord.x * 5432.123 + u_time))
+    y := fract(cos(texCoord.y * 5432.123 + u_time))
+
+    // Determine the size and visibility of the snowflake
+    size := 0.02 // Snowflake size
+    alpha := 0.5 // Snowflake transparency
+
+    // Calculate distance from the current fragment to the snowflake position
+    dist := distance(texCoord, vec2(x, y))
+
+    // Render the snowflake if within size distance
+    if dist < size {
+        return vec4(1.0, 1.0, 1.0, alpha) // White snowflake with some transparency
+    }
+
+    // Make other fragments fully transparent
+    return vec4(0.0, 0.0, 0.0, 0.0)
+}
