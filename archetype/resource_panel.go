@@ -7,7 +7,6 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
 	"github.com/m110/kingdoms/domain"
@@ -89,7 +88,7 @@ func ShowResourceInfoPanelIfRelevant(w donburi.World, tileEntry *donburi.Entry) 
 }
 
 func UpdateResourceInfoPanel(w donburi.World) {
-	panel, ok := query.NewQuery(filter.Contains(component.ResourceInfoPanel)).First(w)
+	panel, ok := donburi.NewQuery(filter.Contains(component.ResourceInfoPanel)).First(w)
 	if !ok {
 		return
 	}
@@ -98,7 +97,7 @@ func UpdateResourceInfoPanel(w donburi.World) {
 }
 
 func HideResourceInfoPanel(w donburi.World) {
-	panel, ok := query.NewQuery(filter.Contains(component.ResourceInfoPanel)).First(w)
+	panel, ok := donburi.NewQuery(filter.Contains(component.ResourceInfoPanel)).First(w)
 	if !ok {
 		return
 	}

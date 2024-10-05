@@ -4,18 +4,17 @@ import (
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
 )
 
 type Wander struct {
-	query *query.Query
+	query *donburi.Query
 }
 
 func NewWander() *Wander {
 	return &Wander{
-		query: query.NewQuery(
+		query: donburi.NewQuery(
 			filter.Contains(
 				component.Wander,
 				component.Velocity,

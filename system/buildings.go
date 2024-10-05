@@ -6,7 +6,6 @@ import (
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/archetype"
 	"github.com/m110/kingdoms/assets"
@@ -35,17 +34,17 @@ type Buildings struct {
 
 func NewBuildings() *Buildings {
 	return &Buildings{
-		tilesQuery: query.NewQuery(
+		tilesQuery: donburi.NewQuery(
 			filter.Contains(
 				component.Tile,
 			),
 		),
-		roadsQuery: query.NewQuery(
+		roadsQuery: donburi.NewQuery(
 			filter.Contains(
 				component.Road,
 			),
 		),
-		settlementsQuery: query.NewQuery(
+		settlementsQuery: donburi.NewQuery(
 			filter.Contains(
 				component.Settlement,
 			),
@@ -178,7 +177,7 @@ func (b *Buildings) SpawnRoad(w donburi.World, tileEntry *donburi.Entry, request
 }
 
 func UpdateAllTilesBuildPermissions(w donburi.World) {
-	query.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
 		updateTileBuildPermissions(w, entry)
 	})
 }
@@ -194,7 +193,7 @@ func updateTileBuildPermissions(w donburi.World, tileEntry *donburi.Entry) {
 		}
 	}
 
-	originSettlementSpawned := query.NewQuery(filter.Contains(component.Settlement)).Count(w) > 0
+	originSettlementSpawned := donburi.NewQuery(filter.Contains(component.Settlement)).Count(w) > 0
 
 	tile.CanBuildBuildings = tile.Terrain == domain.TerrainPlains && tile.Deposit == nil && !tile.HasBuilding && (tile.HasRoad || !originSettlementSpawned)
 	tile.CanBuildRoad = canBuildRoad(tile)
@@ -267,7 +266,7 @@ func (b *Buildings) neighborsForRoad(x, y int) neighborRoads {
 }
 
 func SpawnSettlers(w donburi.World, tileEntry *donburi.Entry) {
-	if query.NewQuery(filter.Contains(component.Settlers)).Count(w) > 0 {
+	if donburi.NewQuery(filter.Contains(component.Settlers)).Count(w) > 0 {
 		panic("already have settlers")
 	}
 
@@ -342,7 +341,7 @@ func (b *Buildings) spawnOriginSettlement(w donburi.World, tileEntry *donburi.En
 		b.SpawnRoad(w, neighborTile, false)
 	}
 
-	query.NewQuery(filter.Contains(component.Settlers)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Settlers)).Each(w, func(entry *donburi.Entry) {
 		component.Destroy(entry)
 	})
 

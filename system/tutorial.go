@@ -5,7 +5,6 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/archetype"
 	"github.com/m110/kingdoms/component"
@@ -210,12 +209,12 @@ type tutorialEvents struct {
 
 type Tutorial struct {
 	currentStep         int
-	tutorialDialogQuery *query.Query
+	tutorialDialogQuery *donburi.Query
 }
 
 func NewTutorial() *Tutorial {
 	return &Tutorial{
-		tutorialDialogQuery: query.NewQuery(
+		tutorialDialogQuery: donburi.NewQuery(
 			filter.Contains(component.TutorialDialog),
 		),
 	}

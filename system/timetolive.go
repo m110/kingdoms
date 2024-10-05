@@ -3,18 +3,17 @@ package system
 import (
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
 )
 
 type TimeToLive struct {
-	query *query.Query
+	query *donburi.Query
 }
 
 func NewTimeToLive() *TimeToLive {
 	return &TimeToLive{
-		query: query.NewQuery(
+		query: donburi.NewQuery(
 			filter.Contains(component.TimeToLive),
 		),
 	}

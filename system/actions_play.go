@@ -3,7 +3,6 @@ package system
 import (
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
 	"github.com/m110/kingdoms/engine"
@@ -64,7 +63,7 @@ func (a *ActionsPlay) replayAction(w donburi.World, action component.Action) {
 		payload := action.Payload.GetSettlementUpgradeRequested()
 
 		var settlement *donburi.Entry
-		query.NewQuery(filter.Contains(component.Settlement)).Each(w, func(entry *donburi.Entry) {
+		donburi.NewQuery(filter.Contains(component.Settlement)).Each(w, func(entry *donburi.Entry) {
 			if settlement != nil {
 				return
 			}

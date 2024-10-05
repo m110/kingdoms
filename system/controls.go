@@ -15,7 +15,6 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 	"golang.org/x/image/colornames"
 
 	"github.com/m110/kingdoms/archetype"
@@ -48,11 +47,11 @@ type Controls struct {
 	cameraBoundsMin math.Vec2
 	cameraBoundsMax math.Vec2
 
-	chunksQuery    *query.Query
-	crosshairQuery *query.Query
-	selectedQuery  *query.Query
-	buttonsQuery   *query.Query
-	uiPanelsQuery  *query.Query
+	chunksQuery    *donburi.Query
+	crosshairQuery *donburi.Query
+	selectedQuery  *donburi.Query
+	buttonsQuery   *donburi.Query
+	uiPanelsQuery  *donburi.Query
 
 	isTouching       bool
 	isTouchingUI     bool
@@ -77,21 +76,21 @@ func NewControls(mapInteractive bool) *Controls {
 			X: 0,
 			Y: 0,
 		},
-		chunksQuery: query.NewQuery(
+		chunksQuery: donburi.NewQuery(
 			filter.Contains(
 				transform.Transform,
 				component.Chunk,
 			),
 		),
-		crosshairQuery: query.NewQuery(filter.Contains(component.Crosshair)),
-		selectedQuery:  query.NewQuery(filter.Contains(component.SelectedIndicator)),
-		buttonsQuery: query.NewQuery(
+		crosshairQuery: donburi.NewQuery(filter.Contains(component.Crosshair)),
+		selectedQuery:  donburi.NewQuery(filter.Contains(component.SelectedIndicator)),
+		buttonsQuery: donburi.NewQuery(
 			filter.Contains(
 				component.Collider,
 				component.Button,
 			),
 		),
-		uiPanelsQuery: query.NewQuery(
+		uiPanelsQuery: donburi.NewQuery(
 			filter.Or(
 				filter.Contains(
 					component.UIPanel,

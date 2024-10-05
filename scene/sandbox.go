@@ -10,7 +10,6 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 	"golang.org/x/image/colornames"
 	"gopkg.in/yaml.v3"
 
@@ -105,7 +104,7 @@ func (s *Sandbox) createUI(w donburi.World) {
 	transform.AppendChild(panel, reloadButton, false)
 
 	toggleBoardButton := archetype.NewButton(w, "Toggle Board", math.Vec2{X: 20, Y: 150}, false, func(w donburi.World, e *donburi.Entry) {
-		query.NewQuery(filter.Contains(component.Tile)).Each(w, func(e *donburi.Entry) {
+		donburi.NewQuery(filter.Contains(component.Tile)).Each(w, func(e *donburi.Entry) {
 			if !e.HasComponent(component.Active) {
 				e.AddComponent(component.Active)
 				component.Active.SetValue(e, component.ActiveData{
@@ -144,7 +143,7 @@ func (s *Sandbox) createUI(w donburi.World) {
 }
 
 func toggleDebugTiles(w donburi.World, tag donburi.IComponentType, isActive bool) {
-	query.NewQuery(filter.Contains(tag)).Each(w, func(e *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(tag)).Each(w, func(e *donburi.Entry) {
 		active := component.Active.Get(e)
 		active.Active = isActive
 	})

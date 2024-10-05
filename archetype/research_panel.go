@@ -3,13 +3,13 @@ package archetype
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/vector"
-	"github.com/m110/kingdoms/domain"
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 
 	"github.com/m110/kingdoms/assets"
 	"github.com/m110/kingdoms/component"
+	"github.com/m110/kingdoms/domain"
 	"github.com/m110/kingdoms/engine"
 	"github.com/m110/kingdoms/events"
 )

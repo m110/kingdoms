@@ -3,7 +3,6 @@ package system
 import (
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/domain"
 
@@ -20,7 +19,7 @@ type Progress struct {
 
 func NewProgress() *Progress {
 	return &Progress{
-		settlementsQuery: query.NewQuery(filter.Contains(component.Settlement)),
+		settlementsQuery: donburi.NewQuery(filter.Contains(component.Settlement)),
 	}
 }
 

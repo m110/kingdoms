@@ -4,21 +4,18 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/m110/kingdoms/domain"
-
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/archetype"
-	"github.com/m110/kingdoms/events"
-
 	"github.com/m110/kingdoms/assets"
 	"github.com/m110/kingdoms/component"
+	"github.com/m110/kingdoms/domain"
 	"github.com/m110/kingdoms/engine"
+	"github.com/m110/kingdoms/events"
 )
 
 type UI struct {
@@ -99,7 +96,7 @@ func showRoadPlaceholders(w donburi.World, tileEntry *donburi.Entry) {
 	tile := component.Tile.Get(tileEntry)
 	neighborTiles := tile.NeighborTiles.All()
 
-	query.NewQuery(filter.Contains(component.RoadPlaceholder)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.RoadPlaceholder)).Each(w, func(entry *donburi.Entry) {
 		component.Destroy(entry)
 	})
 
@@ -149,12 +146,12 @@ func showRoadPlaceholders(w donburi.World, tileEntry *donburi.Entry) {
 }
 
 func roadPlaceholdersPresent(w donburi.World) bool {
-	return query.NewQuery(filter.Contains(component.RoadPlaceholder)).Count(w) > 0
+	return donburi.NewQuery(filter.Contains(component.RoadPlaceholder)).Count(w) > 0
 }
 
 func hideRoadPlaceholders(w donburi.World) {
 	archetype.HideBuildRoadPanel(w)
-	query.NewQuery(filter.Contains(component.RoadPlaceholder)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.RoadPlaceholder)).Each(w, func(entry *donburi.Entry) {
 		component.Destroy(entry)
 	})
 }

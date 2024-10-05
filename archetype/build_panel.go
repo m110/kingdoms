@@ -1,14 +1,13 @@
 package archetype
 
 import (
-	"github.com/m110/kingdoms/domain"
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
+	"github.com/m110/kingdoms/domain"
 	"github.com/m110/kingdoms/events"
 )
 
@@ -67,7 +66,7 @@ func ShowBuildPanelIfRelevant(w donburi.World, tileEntry *donburi.Entry) *donbur
 }
 
 func HideBuildPanel(w donburi.World) bool {
-	panel, ok := query.NewQuery(filter.Contains(component.BuildPanel)).First(w)
+	panel, ok := donburi.NewQuery(filter.Contains(component.BuildPanel)).First(w)
 	if !ok {
 		return false
 	}

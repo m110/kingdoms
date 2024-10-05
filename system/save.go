@@ -7,7 +7,6 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/archetype"
 	"github.com/m110/kingdoms/component"
@@ -129,7 +128,7 @@ func (s *Save) saveGame(w donburi.World) {
 
 	// TODO support more buildings
 	var buildings []*save.Building
-	query.NewQuery(filter.Contains(component.Settlement)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Settlement)).Each(w, func(entry *donburi.Entry) {
 		parent, ok := transform.GetParent(entry)
 		if !ok {
 			panic("settlement has no parent")
@@ -148,7 +147,7 @@ func (s *Save) saveGame(w donburi.World) {
 	game.Buildings = buildings
 
 	var roads []*save.Road
-	query.NewQuery(filter.Contains(component.Road)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Road)).Each(w, func(entry *donburi.Entry) {
 		parent, ok := transform.GetParent(entry)
 		if !ok {
 			panic("settlement has no parent")
@@ -212,7 +211,7 @@ func (s *Save) saveGameReplay(w donburi.World) {
 
 func newBoardForSave(w donburi.World, maxAmount bool) *save.Board {
 	var tiles []*save.Tile
-	query.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
 		tile := component.Tile.Get(entry)
 
 		amount := int64(tile.Resource.Amount)

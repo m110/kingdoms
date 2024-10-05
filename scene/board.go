@@ -7,13 +7,11 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
-
-	"github.com/m110/kingdoms/domain"
 
 	"github.com/m110/kingdoms/archetype"
 	"github.com/m110/kingdoms/assets"
 	"github.com/m110/kingdoms/component"
+	"github.com/m110/kingdoms/domain"
 	"github.com/m110/kingdoms/engine"
 	gameevents "github.com/m110/kingdoms/events"
 	"github.com/m110/kingdoms/save"
@@ -316,7 +314,7 @@ func newMenuPanel(w donburi.World, ctx Context, canSave bool) *donburi.Entry {
 	component.Layer.Get(menuPanel).Layer = component.SpriteUILayerUI
 
 	researchButton := archetype.NewIconButton(w, assets.IconResearch, math.Vec2{X: 10, Y: 12}, false, func(w donburi.World, e *donburi.Entry) {
-		existing, ok := query.NewQuery(filter.Contains(component.ResearchPanel)).First(w)
+		existing, ok := donburi.NewQuery(filter.Contains(component.ResearchPanel)).First(w)
 		if ok {
 			component.Destroy(existing)
 			return
@@ -389,7 +387,7 @@ func newPauseMenu(w donburi.World, ctx Context, canSave bool) *donburi.Entry {
 	transform.AppendChild(cheatsPanel, diamondIcon, false)
 
 	toggleFogButton := archetype.NewButton(w, "Toggle Fog", math.Vec2{X: 10, Y: 312}, true, func(w donburi.World, e *donburi.Entry) {
-		query.NewQuery(filter.Contains(component.TileFog)).Each(w, func(e *donburi.Entry) {
+		donburi.NewQuery(filter.Contains(component.TileFog)).Each(w, func(e *donburi.Entry) {
 			sprite := component.Sprite.Get(e)
 			sprite.Hidden = !sprite.Hidden
 		})

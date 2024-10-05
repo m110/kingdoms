@@ -6,7 +6,6 @@ import (
 	"github.com/yohamta/donburi/component"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 )
 
 func MustGetParent(entry *donburi.Entry) *donburi.Entry {
@@ -26,7 +25,7 @@ func MustFindChildWithComponent(parent *donburi.Entry, componentType component.I
 }
 
 func FindWithComponent(w donburi.World, componentType component.IComponentType) (*donburi.Entry, bool) {
-	return query.NewQuery(filter.Contains(componentType)).First(w)
+	return donburi.NewQuery(filter.Contains(componentType)).First(w)
 }
 
 func MustFindWithComponent(w donburi.World, componentType component.IComponentType) *donburi.Entry {
@@ -43,7 +42,7 @@ type Component[T any] interface {
 }
 
 func MustFindComponent[T any](w donburi.World, c Component[T]) *T {
-	entry, ok := query.NewQuery(filter.Contains(c)).First(w)
+	entry, ok := donburi.NewQuery(filter.Contains(c)).First(w)
 	if !ok {
 		panic("MustFindComponent: entry not found")
 	}

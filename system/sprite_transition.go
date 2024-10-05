@@ -7,7 +7,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
 	"github.com/m110/kingdoms/domain"
@@ -18,7 +17,7 @@ import (
 const TileImagesTransitionDuration = 1 * time.Second
 
 type SpriteTransition struct {
-	query *query.Query
+	query *donburi.Query
 	cache map[*ebiten.Image]map[*ebiten.Image]map[int]*ebiten.Image
 
 	inTransition bool
@@ -27,7 +26,7 @@ type SpriteTransition struct {
 
 func NewSpriteTransition() *SpriteTransition {
 	return &SpriteTransition{
-		query: query.NewQuery(filter.Contains(component.SpriteTransition)),
+		query: donburi.NewQuery(filter.Contains(component.SpriteTransition)),
 		cache: map[*ebiten.Image]map[*ebiten.Image]map[int]*ebiten.Image{},
 		timer: engine.NewTimer(TileImagesTransitionDuration),
 	}
@@ -74,7 +73,7 @@ func (s *SpriteTransition) onSeasonChanged(w donburi.World, event events.SeasonC
 	s.timer.Reset()
 	s.inTransition = true
 
-	query.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
 		tile := component.Tile.Get(entry)
 		terrainData := domain.Terrains[tile.Terrain]
 

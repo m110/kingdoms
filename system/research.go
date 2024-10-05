@@ -1,10 +1,10 @@
 package system
 
 import (
-	"github.com/m110/kingdoms/domain"
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
+
+	"github.com/m110/kingdoms/domain"
 
 	"github.com/m110/kingdoms/archetype"
 	"github.com/m110/kingdoms/component"
@@ -77,7 +77,7 @@ func (r *Research) OnResearchRequested(w donburi.World, event events.ResearchReq
 	}
 
 	// TODO Probably a hack - close and open the panel instead of updating
-	panel, ok := query.NewQuery(filter.Contains(component.ResearchPanel)).First(w)
+	panel, ok := donburi.NewQuery(filter.Contains(component.ResearchPanel)).First(w)
 	if ok {
 		component.Destroy(panel)
 		archetype.NewResearchPanel(w, &event.Technology)

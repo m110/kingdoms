@@ -7,7 +7,6 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/archetype"
 	"github.com/m110/kingdoms/assets"
@@ -36,7 +35,7 @@ func (m *Map) Init(w donburi.World) {
 func (m *Map) Update(w donburi.World) {}
 
 func harvestTiles(w donburi.World) {
-	query.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
 		tile := component.Tile.Get(entry)
 		if !tile.CanBeHarvested || tile.Deposit == nil || tile.Resource.Amount == 0 {
 			return
@@ -118,7 +117,7 @@ func (m *Map) onTechnologyResearched(w donburi.World, event events.TechnologyRes
 }
 
 func (m *Map) showAnimalsBiomes(w donburi.World) {
-	query.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
 		tile := component.Tile.Get(entry)
 
 		if tile.HiddenDeposit == nil || *tile.HiddenDeposit != domain.DepositDeer {
@@ -257,7 +256,7 @@ func markNeighbors(tiles [][]*donburi.Entry) {
 }
 
 func markBorders(w donburi.World) {
-	query.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
+	donburi.NewQuery(filter.Contains(component.Tile)).Each(w, func(entry *donburi.Entry) {
 		tile := component.Tile.Get(entry)
 
 		border, ok := transform.FindChildWithComponent(entry, component.TileBorder)

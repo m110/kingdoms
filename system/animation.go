@@ -3,18 +3,17 @@ package system
 import (
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
 )
 
 type Animation struct {
-	query *query.Query
+	query *donburi.Query
 }
 
 func NewAnimation() *Animation {
 	return &Animation{
-		query: query.NewQuery(filter.Contains(component.Animation)),
+		query: donburi.NewQuery(filter.Contains(component.Animation)),
 	}
 }
 

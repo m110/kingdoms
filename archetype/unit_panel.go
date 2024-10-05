@@ -9,7 +9,6 @@ import (
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/component"
 	"github.com/m110/kingdoms/domain"
@@ -109,7 +108,7 @@ func ShowUnitInfoPanelIfRelevant(w donburi.World, tileEntry *donburi.Entry) *don
 }
 
 func UpdateUnitInfoPanel(w donburi.World) {
-	panel, ok := query.NewQuery(filter.Contains(component.UnitInfoPanel)).First(w)
+	panel, ok := donburi.NewQuery(filter.Contains(component.UnitInfoPanel)).First(w)
 	if !ok {
 		return
 	}
@@ -118,7 +117,7 @@ func UpdateUnitInfoPanel(w donburi.World) {
 }
 
 func HideUnitInfoPanel(w donburi.World) {
-	panel, ok := query.NewQuery(filter.Contains(component.UnitInfoPanel)).First(w)
+	panel, ok := donburi.NewQuery(filter.Contains(component.UnitInfoPanel)).First(w)
 	if !ok {
 		return
 	}

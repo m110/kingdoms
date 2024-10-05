@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/m110/kingdoms/scene/generator"
-
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/yohamta/donburi"
 	donburievents "github.com/yohamta/donburi/features/events"
@@ -18,6 +16,7 @@ import (
 	"github.com/m110/kingdoms/domain"
 	"github.com/m110/kingdoms/engine"
 	"github.com/m110/kingdoms/save"
+	"github.com/m110/kingdoms/scene/generator"
 	"github.com/m110/kingdoms/system"
 )
 

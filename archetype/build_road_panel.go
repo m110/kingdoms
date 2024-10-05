@@ -1,14 +1,14 @@
 package archetype
 
 import (
-	"github.com/m110/kingdoms/component"
-	"github.com/m110/kingdoms/engine"
-	"github.com/m110/kingdoms/events"
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
+
+	"github.com/m110/kingdoms/component"
+	"github.com/m110/kingdoms/engine"
+	"github.com/m110/kingdoms/events"
 )
 
 type roadPanelButton struct {
@@ -44,7 +44,7 @@ func ShowBuildRoadPanel(w donburi.World) {
 		WithPosition(math.Vec2{X: 72, Y: 72}).
 		Entry()
 
-	q := query.NewQuery(
+	q := donburi.NewQuery(
 		filter.And(
 			filter.Contains(component.RoadPlaceholder),
 			filter.Not(filter.Contains(component.Destroyed)),

@@ -58,7 +58,7 @@ func NewSeasonUIPanel(w donburi.World) *donburi.Entry {
 		Entry()
 
 	updateFunc := func(e *donburi.Entry) {
-		component.Text.Get(seasonText).Text = fmt.Sprintf("%v, Day %v %v", progress.Season.String(), domain.SeasonDay(progress.Day), progress.Day)
+		component.Text.Get(seasonText).Text = fmt.Sprintf("%v, Day %v", progress.Season.String(), domain.SeasonDay(progress.Day))
 		component.Text.Get(yearText).Text = fmt.Sprintf("Year %v", progress.Year)
 
 		if currentDay != progress.Day {

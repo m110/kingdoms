@@ -13,7 +13,6 @@ import (
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/transform"
 	"github.com/yohamta/donburi/filter"
-	"github.com/yohamta/donburi/query"
 
 	"github.com/m110/kingdoms/archetype"
 	"github.com/m110/kingdoms/assets"
@@ -22,8 +21,8 @@ import (
 )
 
 type Render struct {
-	chunksQuery *query.Query
-	uiQuery     *query.Query
+	chunksQuery *donburi.Query
+	uiQuery     *donburi.Query
 
 	mainBoardOffscreen *ebiten.Image
 	uiOffscreen        *ebiten.Image
@@ -37,13 +36,13 @@ type Render struct {
 
 func NewRenderer() *Render {
 	return &Render{
-		uiQuery: query.NewQuery(
+		uiQuery: donburi.NewQuery(
 			filter.Contains(
 				transform.Transform,
 				component.UI,
 			),
 		),
-		chunksQuery: query.NewQuery(
+		chunksQuery: donburi.NewQuery(
 			filter.Contains(
 				transform.Transform,
 				component.Chunk,

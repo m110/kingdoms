@@ -2,12 +2,13 @@ package archetype
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/m110/kingdoms/assets"
-	"github.com/m110/kingdoms/component"
-	"github.com/m110/kingdoms/engine"
 	"github.com/yohamta/donburi"
 	"github.com/yohamta/donburi/features/math"
 	"github.com/yohamta/donburi/features/transform"
+
+	"github.com/m110/kingdoms/assets"
+	"github.com/m110/kingdoms/component"
+	"github.com/m110/kingdoms/engine"
 )
 
 func NewReplayPanel(w donburi.World, rewindFunc func()) {
