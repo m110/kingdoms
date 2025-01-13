@@ -2,7 +2,7 @@
 
 A strategy game written in Go and Ebitengine.
 
-https://raw.githubusercontent.com/m110/kingdoms/refs/heads/master/.github/video.mp4
+https://github.com/user-attachments/assets/f85316ad-bdf6-45ee-90cd-0a07719b5931
 
 ## Sandbox (terrain generation)
 
