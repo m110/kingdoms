@@ -1,5 +1,15 @@
 # Kingdoms
 
+A strategy game written in Go and Ebitengine.
+
+https://raw.githubusercontent.com/m110/kingdoms/refs/heads/master/.github/video.mp4
+
+## Sandbox (terrain generation)
+
+![](.github/sandbox-1.png)
+
+![](.github/sandbox-2.png)
+
 ## Layers
 
 * Domain — should be Kingdoms-specific data.
